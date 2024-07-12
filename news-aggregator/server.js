@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./db');
 const User = require('./models/User');
+const fetchNews = require('./utils/newsFetcher');
+
 
 
 
@@ -26,6 +28,17 @@ app.post('/register', async (req, res) => {
     }
 });
 
+
+app.get('/news', async (req, res) => {
+    const { userId } = req.query;
+    try {
+        const user = await User.findById(userId);
+        const news = await fetchNews(user.preferences);
+        res.json(news);
+    } catch ( error) {
+        res.status(400).send(error.message);
+    }
+});
 
 
 app.listen(PORT, () => {
