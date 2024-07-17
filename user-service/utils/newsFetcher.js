@@ -15,4 +15,17 @@ const fetchNews = async (preferences) => {
     }
 };
 
-module.exports = fetchNews;
+const summarizeNews = async (articles) => {
+    try {
+        // Mock implementation; replace with actual API calls
+        return articles.map(article => ({
+            title: article.title,
+            summary: `Summarized version of ${article.title}`
+        }));
+    } catch (error) {
+        console.error('Error summarizing news:', error);
+        return articles; // Return original if summarization fails
+    }
+};
+
+module.exports = {fetchNews, summarizeNews};

@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./db');
 const User = require('./models/User');
-const fetchNews = require('./utils/newsFetcher');
+const { fetchNews, summarizeNews } = require('./utils/newsFetcher');
 
 
 
@@ -35,6 +35,33 @@ app.get('/news', async (req, res) => {
         const user = await User.findById(userId);
         const news = await fetchNews(user.preferences);
         res.json(news);
+    } catch ( error) {
+        res.status(400).send(error.message);
+    }
+});
+
+app.patch('/updatePreferences', async (req, res) => {
+    const { userId, preferences } = req.body;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        user.preferences = preferences;
+        await user.save();
+        res.send('User preferences updated successfully');
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+app.get('/summarizedNews', async (req, res) => {
+    const { userId } = req.query;
+    try {
+        const user = await User.findById(userId);
+        const news = await fetchNews(user.preferences);
+        const summarizedNews = await summarizeNews(news);
+        res.json(summarizedNews);
     } catch ( error) {
         res.status(400).send(error.message);
     }
