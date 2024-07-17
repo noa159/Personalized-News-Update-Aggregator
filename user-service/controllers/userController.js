@@ -1,5 +1,5 @@
 const { handleRegister, handleLogin, handleGetUser } = require('../handlers/userHandler');
-const baseController = require('../../utils/baseController')
+const baseController = require('../utils/baseController')
 
 // const registerUser = async (req, res) => {
 //     try {

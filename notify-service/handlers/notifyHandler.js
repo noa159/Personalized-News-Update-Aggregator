@@ -17,12 +17,13 @@ const initTransporter = () => {
     });
 };
 
-const sendEmailHandler = async (email, newsContent) => {
+const sendEmailHandler = async (params) => {
+    const {email, newsContent} = params;
     if (!transporter) {
         initTransporter();
     }
     const mailOptions = {
-        from: process.env.EMAIL_USER_NAME,
+        from: process.env.EMAIL_USERNAME,
         to: email,
         subject: EMAIL_SUBJECT,
         html: `<h1>News update</h1><p>${newsContent}</p>`

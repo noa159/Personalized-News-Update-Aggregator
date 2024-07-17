@@ -6,6 +6,7 @@ const connectDB = async () => {
         });
         console.log('MongoDB connected...');
     } catch (error) {
+        console.log(`uri: ${process.env.MONGODB_URI}`);
         console.error('MongoDB connection error message:', error.message);
         console.error('MongoDB connection error stack:', error.stack);
 

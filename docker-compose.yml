@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/userdb
+      - JWT_SECRET=123456
+    networks:
+      - app-network
+
+  user-service-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "user-service", "-app-port", "3001", "-dapr-http-port", "3500", "-dapr-grpc-port", "50002" ]
+    volumes:
+      - "./components:/components"
+    depends_on:
+      - user-service
+    networks:
+      - app-network
+    ports:
+      - "3500:3500"
+      - "50002:50002"
+
+  news-service:
+    build: ./news-service
+    ports:
+      - "3002:3002"
+    environment:
+      - JWT_SECRET=123456
+
+  news-service-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "news-service", "-app-port", "3002", "-dapr-http-port", "3501", "-dapr-grpc-port", "50003" ]
+    volumes:
+      - "./components:/components"
+    depends_on:
+      - news-service
+    networks:
+      - app-network
+    ports:
+      - "3501:3501"
+      - "50003:50003"
+
+  notify-service:
+    build: ./notify-service
+    ports:
+      - "3003:3003"
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

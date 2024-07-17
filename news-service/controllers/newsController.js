@@ -1,4 +1,4 @@
-const  baseController  = require('../../utils/baseController');
+const  baseController  = require('../utils/baseController');
 const { fetchNews, summarizeNews } = require('../handlers/newsHandler');
 
 
