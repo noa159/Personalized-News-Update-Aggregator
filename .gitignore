@@ -60,3 +60,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+/news-service/package-lock.json
+/notify-service/package-lock.json
+/utils/package-lock.json

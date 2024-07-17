@@ -5,10 +5,10 @@ const newsRoutes = require('./routes/newsRoutes');
 const app = express();
 app.use(express.json());
 app.use('/api/news', newsRoutes);
-// use jwt to validate news??
+// todo: use jwt to validate news??
 
 
 const PORT = process.env.PORT || 3002;
-app.listen(PORT, () => console.log(`User Service running on port ${PORT}`));
+app.listen(PORT, () => console.log(`News Service running on port ${PORT}`));
 
 
