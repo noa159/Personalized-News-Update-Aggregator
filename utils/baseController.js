@@ -26,6 +26,13 @@ const baseController = (handler, params) => async(req, res) => {
         }
         console.log(`Calling ${handler.name} with params: ${JSON.stringify(handlerParams)}`)
         const result = await handler(handlerParams);
+        console.log(`result is: ${JSON.stringify(result)}`)
+        if(result["password"]) {
+            result["password"] = null;
+        }
+        if (result.user?.password) {
+            result.user.password = null;
+        }
         res.status(params.successStatus ?? 200).json(result);
     } catch (error) {
 

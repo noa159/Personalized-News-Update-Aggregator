@@ -12,22 +12,8 @@ const baseController = require('../../utils/baseController')
 
 const registerUser = baseController(handleRegister, {body: true, successStatus: 201});
 
-const loginUser = async (req, res) => {
-    try {
-        const result = await handleLogin(req.body);
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+const loginUser = baseController(handleLogin, {body: true});
 
-const getUser = async (req, res) => {
-    try {
-        const result = await handleGetUser(req.params.id);
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+const getUser = baseController(handleGetUser, {params: true});
 
 module.exports = { registerUser, loginUser, getUser };

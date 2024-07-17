@@ -4,6 +4,6 @@ const { registerUser, loginUser, getUser } = require('../controllers/userControl
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.get('/:id', getUser);
+router.get('/:jwt', getUser);
 
 module.exports = router;

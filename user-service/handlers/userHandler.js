@@ -20,7 +20,9 @@ const handleLogin = async ({ email, password }) => {
     return { user, token };
 };
 
-const handleGetUser = async (id) => {
+const handleGetUser = async (params) => {
+    console.log(`jwt: ${JSON.stringify(params)}`)
+    const { id } = jwt.verify(params.jwt, process.env.JWT_SECRET);
     const user = await User.findById(id);
     if (!user) throw new Error('User not found');
     return user;
