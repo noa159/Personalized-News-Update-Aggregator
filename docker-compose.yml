@@ -31,6 +31,7 @@ services:
       - "3002:3002"
     environment:
       - JWT_SECRET=123456
+      - NEWS_API_KEY=pub_48471d08a5640c5dfc3c896b16dd21e2e27fb
 
   news-service-dapr:
     image: "daprio/daprd:latest"
@@ -49,6 +50,11 @@ services:
     build: ./notify-service
     ports:
       - "3003:3003"
+    environment:
+      - JWT_SECRET=123456
+      - EMAIL_USERNAME=null # private for git push
+      - EMAIL_PASS=null # private for git push
+      - TELEGRAM_BOT_TOKEN=null # private for git push
 
   mongo:
     image: mongo
