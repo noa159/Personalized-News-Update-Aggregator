@@ -33,6 +33,18 @@ const handleLogin = async ({ email, password }) => {
     return { user, token };
 };
 
+const handleChangePreferences = async ({ jwt, preferences }) => {
+    const {id} = jwt.verify(jwt, process.env.JWT_SECRET);
+    const user = await User.findById(id);
+    if (!user) throw new Error('User not found');
+    user.preferences = preferences;
+    await user.save();
+
+    const state = { key: `preferences-${id}`, value: preferences };
+    await axios.post(STATE_URL, state);
+    return { user };
+}
+
 const handleGetUser = async (params) => {
     console.log(`jwt: ${JSON.stringify(params)}`)
     const { id } = jwt.verify(params.jwt, process.env.JWT_SECRET);
@@ -41,4 +53,4 @@ const handleGetUser = async (params) => {
     return user;
 };
 
-module.exports = { handleRegister, handleLogin, handleGetUser };
+module.exports = { handleRegister, handleLogin, handleGetUser, handleChangePreferences };

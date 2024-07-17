@@ -1,4 +1,4 @@
-const { handleRegister, handleLogin, handleGetUser } = require('../handlers/userHandler');
+const { handleRegister, handleLogin, handleGetUser, handleChangePreferences } = require('../handlers/userHandler');
 const baseController = require('../utils/baseController')
 
 // const registerUser = async (req, res) => {
@@ -16,4 +16,6 @@ const loginUser = baseController(handleLogin, {body: true});
 
 const getUser = baseController(handleGetUser, {params: true});
 
-module.exports = { registerUser, loginUser, getUser };
+const changePreferences = baseController(handleChangePreferences, {body: true});
+
+module.exports = { registerUser, loginUser, getUser, changePreferences };
