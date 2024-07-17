@@ -63,3 +63,5 @@ dist
 /news-service/package-lock.json
 /notify-service/package-lock.json
 /utils/package-lock.json
+/news-service/.npmrc
+/news-service/.zshrc

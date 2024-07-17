@@ -5,7 +5,7 @@ const newsRoutes = require('./routes/notifyRoutes');
 const app = express();
 app.use(express.json());
 app.use('/api/notify', newsRoutes);
-// use jwt to validate news??
+//
 
 
 const PORT = process.env.PORT || 3003;

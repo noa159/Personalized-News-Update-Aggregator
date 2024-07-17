@@ -25,7 +25,6 @@ const summarizeNews = async (params) => {
     try {
         const articles = await fetchNews(params);
 
-        // todo: This is a mock implementation; replace with actual summary logic
         return articles.map(article => ({
             title: article.title,
             summary: article.description,
